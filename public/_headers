@@ -1,0 +1,16 @@
+﻿# Cloudflare Pages / Netlify 용. GitHub Pages는 이 파일을 무시함.
+# 해시가 붙은 정적 자산은 내용이 바뀌면 파일명도 바뀌므로 1년 immutable.
+/_next/static/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# HTML은 항상 재검증 (배포 즉시 반영, 변경 없으면 304로 가볍게).
+/
+  Cache-Control: public, max-age=0, must-revalidate
+/index.html
+  Cache-Control: public, max-age=0, must-revalidate
+
+/*
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  X-Frame-Options: DENY
+  Permissions-Policy: camera=(), microphone=(), geolocation=()
