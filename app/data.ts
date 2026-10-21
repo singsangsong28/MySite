@@ -30,8 +30,8 @@ export const stats = [
 ];
 
 export const moving = {
-  when: "2026.08 – 2026.10",
-  tag: "Team Project · Codeit 고급 프로젝트 · 2026.08 – 2026.10",
+  when: "2026.08.26 – 2026.10.16",
+  tag: "Team Project · Codeit 고급 프로젝트 · 2026.08.26 – 2026.10.16",
   title: "Moving — 이사 견적 매칭 플랫폼",
   desc: "고객이 이사 유형과 일정을 입력해 견적을 요청하면, 여러 기사님의 견적을 한 화면에서 비교하고 확정하는 서비스. MVP 완료.",
   stack: ["TypeScript", "Next.js", "Express", "Prisma", "PostgreSQL", "AWS"],
