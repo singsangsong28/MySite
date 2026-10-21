@@ -3,5 +3,9 @@
 export const dynamic = "force-static";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  return [{ url: "https://singsangssong.com", lastModified: new Date() }];
+  const languages = { ko: "https://singsangssong.com", en: "https://singsangssong.com/en" };
+  return [
+    { url: languages.ko, lastModified: new Date(), alternates: { languages } },
+    { url: languages.en, lastModified: new Date(), alternates: { languages } },
+  ];
 }

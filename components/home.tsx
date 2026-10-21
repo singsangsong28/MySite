@@ -4,14 +4,10 @@ import photo from "@/assets/profile.jpg"; // 정적 import → 해시 파일명(
 import movingShot from "@/assets/moving.jpg";
 import forestShot from "@/assets/study-forest.jpg";
 import photoShot from "@/assets/favorite-photo.jpg";
-import { profile, skills, timeline, moving, otherWorks, notes, interests } from "./data";
+import { data, ui, type Locale } from "@/app/i18n";
 
 // 썸네일은 각 사이트 첫 화면 캡처 (Edge headless, 1280px 폭)
 const shots = [movingShot, forestShot, photoShot];
-const works = [
-  { name: "Moving", when: moving.when, stack: moving.stack, site: moving.site, repo: moving.repo, docs: moving.docs },
-  ...otherWorks.map((w) => ({ name: w.name, when: w.when, stack: w.stack, site: w.url, repo: w.repo, docs: "" })),
-];
 
 // 반복해서 쓰는 클래스 묶음
 const pad = "px-[clamp(20px,5vw,56px)]";
@@ -26,7 +22,14 @@ const ghost =
   "relative z-[2] rounded-full border border-line px-[18px] py-2 text-[.88rem] transition-[border-color] duration-200 hover:border-fg";
 const ext = { target: "_blank", rel: "noopener noreferrer" } as const;
 
-export default function Home() {
+export default function Home({ locale }: { locale: Locale }) {
+  const { profile, skills, timeline, moving, otherWorks, notes, interests } = data[locale];
+  const t = ui[locale];
+  const works = [
+    { name: "Moving", when: moving.when, stack: moving.stack, site: moving.site, repo: moving.repo, docs: moving.docs },
+    ...otherWorks.map((w) => ({ name: w.name, when: w.when, stack: w.stack, site: w.url, repo: w.repo, docs: "" })),
+  ];
+
   return (
     <>
       <header className={`fixed inset-x-0 top-0 z-40 flex items-center justify-between ${pad} py-[18px] bg-[linear-gradient(var(--color-bg),transparent)] backdrop-blur-[6px]`}>
@@ -36,7 +39,17 @@ export default function Home() {
             <a key={n} href={`#${n.toLowerCase()}`} className="transition-colors duration-200 hover:text-fg">{n}</a>
           ))}
         </nav>
-        <a className={pill} href={`mailto:${profile.email}`}>연락하기</a>
+        <div className="flex items-center gap-3">
+          <a
+            href={t.switchHref}
+            hrefLang={locale === "ko" ? "en" : "ko"}
+            title={t.switchTitle}
+            className="rounded-full border border-line px-3 py-1 text-[.78rem] font-medium tracking-[.08em] text-muted transition-[border-color,color] duration-200 hover:border-fg hover:text-fg"
+          >
+            {t.switchLabel}
+          </a>
+          <a className={pill} href={`mailto:${profile.email}`}>{t.contactBtn}</a>
+        </div>
       </header>
 
       <main id="top">
@@ -46,14 +59,10 @@ export default function Home() {
           </span>
           <Lines
             className={`mb-8 text-[clamp(2.4rem,7.2vw,6.4rem)] ${display}`}
-            lines={["선박의 심장을 다루던 손으로,", <span key="l2">서비스를 <em className="text-accent not-italic">만듭니다</em>.</span>]}
+            lines={[t.heroLine1, <span key="l2">{t.heroPre}<em className="text-accent not-italic">{t.heroEm}</em>{t.heroPost}</span>]}
           />
           <Reveal delay={0.6}>
-            <p className="max-w-[560px] text-[1.1rem] text-muted">
-              컨테이너선 기관사로 장시간 무중단 운항 환경의 모니터링·안전 체계를 운용했습니다.
-              지금은 React·Next.js·TypeScript로 화면을, Express·Prisma로 서버를 만들고, 인증·캐시·배포 구조처럼
-              눈에 보이지 않는 부분까지 근거를 남기며 설계하는 풀스택 개발자입니다.
-            </p>
+            <p className="max-w-[560px] text-[1.1rem] text-muted">{t.lead}</p>
           </Reveal>
           <div className={`absolute bottom-8 left-[clamp(20px,5vw,56px)] flex items-center gap-3 text-[.75rem] tracking-[.2em] text-muted uppercase after:h-px after:w-14 after:origin-left after:animate-line after:bg-muted after:content-['']`}>Scroll</div>
         </section>
@@ -65,18 +74,16 @@ export default function Home() {
           <div className="grid grid-cols-[320px_1fr] items-start gap-16 max-[760px]:grid-cols-1 max-[760px]:gap-10">
             <Reveal>
               <div className="aspect-[4/5] overflow-hidden rounded-3xl border border-line max-[760px]:max-w-[280px]">
-                <Image src={photo} alt="송현규 증명사진" placeholder="blur" sizes="(max-width: 760px) 280px, 320px" className="size-full object-cover object-[50%_18%]" />
+                <Image src={photo} alt={t.photoAlt} placeholder="blur" sizes="(max-width: 760px) 280px, 320px" className="size-full object-cover object-[50%_18%]" />
               </div>
             </Reveal>
             <Reveal delay={0.1}>
-              <p className="mb-5 text-[clamp(1.3rem,2.4vw,1.9rem)] leading-[1.5] font-medium tracking-[-0.02em]">
-                백엔드와 프론트엔드를 모두 다루는 풀스택 개발자입니다.
+              <p className="mb-3 flex items-baseline gap-3">
+                <span className="text-[1.6rem] font-black tracking-[-0.03em]">{t.name}</span>
+                <span className="text-[.95rem] text-muted">{t.nameSub}</span>
               </p>
-              <p className="mb-8 text-muted">
-                기능을 구현하는 데서 멈추지 않고, 인증 토큰 저장 방식, 캐시 전략, 환경변수 관리 구조 같은 선택지를
-                비교하고 근거를 남겨 판단합니다. 작은 판단 착오가 큰 사고로 이어지는 배 위에서 절차를 지키고
-                기록하던 습관이 지금도 코드에 그대로 남아 있습니다.
-              </p>
+              <p className="mb-5 text-[clamp(1.3rem,2.4vw,1.9rem)] leading-[1.5] font-medium tracking-[-0.02em]">{t.aboutBig}</p>
+              <p className="mb-8 text-muted">{t.aboutBody}</p>
 
               <div className="mb-12 grid gap-4">
                 {skills.map((g) => (
@@ -92,11 +99,11 @@ export default function Home() {
               </div>
 
               <ol className="grid gap-8 border-l border-line pl-6">
-                {timeline.map((t) => (
-                  <li key={t.what} className="relative grid gap-0.5 before:absolute before:top-2.5 before:-left-[29px] before:size-[9px] before:rounded-full before:bg-accent before:content-['']">
-                    <time className="text-[.8rem] tracking-[.08em] text-accent">{t.kind} · {t.when}</time>
-                    <strong className="text-[1.1rem]">{t.what}</strong>
-                    {t.note && <span className="text-[.92rem] text-muted">{t.note}</span>}
+                {timeline.map((i) => (
+                  <li key={i.what} className="relative grid gap-0.5 before:absolute before:top-2.5 before:-left-[29px] before:size-[9px] before:rounded-full before:bg-accent before:content-['']">
+                    <time className="text-[.8rem] tracking-[.08em] text-accent">{i.kind} · {i.when}</time>
+                    <strong className="text-[1.1rem]">{i.what}</strong>
+                    {i.note && <span className="text-[.92rem] text-muted">{i.note}</span>}
                   </li>
                 ))}
               </ol>
@@ -111,8 +118,8 @@ export default function Home() {
               <Reveal key={w.name} className="flex" delay={i * 0.08}>
                 <Tilt className="flex flex-1 flex-col">
                   <div className="relative grid aspect-[16/10] place-items-center overflow-hidden bg-[#0f0f11] transition-transform duration-[600ms] ease-expo after:absolute after:inset-0 after:bg-[rgba(11,11,12,.7)] after:transition-colors after:duration-[400ms] after:content-[''] group-hover:scale-[1.06] group-hover:after:bg-[rgba(11,11,12,.4)]">
-                    <Image src={shots[i]} alt={`${w.name} 첫 화면`} placeholder="blur" sizes="(max-width: 760px) 100vw, 400px" className="absolute inset-0 size-full object-cover object-top" />
-                    <span className="relative z-[1] text-[clamp(2.4rem,6vw,3.6rem)] font-black tracking-[-0.04em] opacity-90">{w.name}</span>
+                    <Image src={shots[i]} alt={t.shotAlt(w.name)} placeholder="blur" sizes="(max-width: 760px) 100vw, 400px" className="absolute inset-0 size-full object-cover object-top" />
+                    <span className="relative z-[1] px-4 text-center text-[clamp(1.9rem,4.2vw,2.7rem)] leading-[1.1] font-black tracking-[-0.04em] opacity-90">{w.name}</span>
                   </div>
                   <div className="relative flex flex-1 flex-col px-[22px] pt-5 pb-6">
                     <small className={tag}>{w.when}</small>
@@ -123,9 +130,9 @@ export default function Home() {
                       ))}
                     </div>
                     <div className="mt-auto flex flex-wrap items-center gap-3 pt-6">
-                      <a className={pill} href={w.site} {...ext}>사이트 보기 ↗</a>
+                      <a className={pill} href={w.site} {...ext}>{t.viewSite}</a>
                       {w.repo && <a className={ghost} href={w.repo} {...ext}>GitHub ↗</a>}
-                      {w.docs && <a className={ghost} href={w.docs} {...ext}>개발 문서 ↗</a>}
+                      {w.docs && <a className={ghost} href={w.docs} {...ext}>{t.docs}</a>}
                     </div>
                   </div>
                 </Tilt>
@@ -134,14 +141,14 @@ export default function Home() {
           </div>
           {profile.notion && (
             <Reveal>
-              <a className="mt-6 inline-block border-b border-line pb-0.5 text-muted transition-[color,border-color] duration-200 hover:border-fg hover:text-fg" href={profile.notion} {...ext}>프로젝트 전체 기록 보기 ↗</a>
+              <a className="mt-6 inline-block border-b border-line pb-0.5 text-muted transition-[color,border-color] duration-200 hover:border-fg hover:text-fg" href={profile.notion} {...ext}>{t.fullLog}</a>
             </Reveal>
           )}
         </section>
 
         <section id="notes" className={block}>
           <Reveal><h2 className={h2}>Engineering Notes</h2></Reveal>
-          <Reveal><p className="mb-10 max-w-[640px] text-[clamp(1.3rem,2.4vw,1.9rem)] leading-[1.5] font-medium tracking-[-0.02em]">결과보다 어떤 근거로 선택했는지를 남깁니다.</p></Reveal>
+          <Reveal><p className="mb-10 max-w-[640px] text-[clamp(1.3rem,2.4vw,1.9rem)] leading-[1.5] font-medium tracking-[-0.02em]">{t.notesBig}</p></Reveal>
           <div className="grid grid-cols-[repeat(auto-fill,minmax(340px,1fr))] gap-5">
             {notes.map((n, i) => (
               <Reveal key={n.title} delay={(i % 2) * 0.08}>
@@ -170,7 +177,7 @@ export default function Home() {
         <section id="contact" className={`${block} pb-[140px]`}>
           <Reveal>
             <h2 className={h2}>Contact</h2>
-            <p className={`mt-2 mb-7 text-[clamp(2.2rem,6vw,4.6rem)] ${display}`}>같이 일해요.</p>
+            <p className={`mt-2 mb-7 text-[clamp(2.2rem,6vw,4.6rem)] ${display}`}>{t.contactBig}</p>
             <a className="inline-block border-b border-muted pb-1 text-[clamp(1.1rem,3vw,1.8rem)] transition-[color,border-color] duration-200 hover:border-accent hover:text-accent" href={`mailto:${profile.email}`}>{profile.email}</a>
             <div className="mt-7 flex gap-6 text-muted [&>a:hover]:text-fg">
               <a href={profile.github} {...ext}>GitHub ↗</a>
