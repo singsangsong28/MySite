@@ -43,6 +43,12 @@ export const moving = {
   docs: "",
 };
 
+// Works에 설명 없이 배포 주소만 나열
+export const otherWorks = [
+  { name: "공부의 숲", when: "2026.05.18 – 2026.06.08", url: "https://13-study-forest-team2-fe.netlify.app/" },
+  { name: "최애의 포토", when: "2026.07.08 – 2026.07.31", url: "https://13-favorite-photo-4-fe-82g5.vercel.app/" },
+];
+
 // 문제를 어떻게 판단했는지 보여주는 사례. 결과보다 근거를 적음.
 export const notes = [
   {

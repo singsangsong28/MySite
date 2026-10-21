@@ -112,6 +112,12 @@ h2 { font-size: .8rem; letter-spacing: .2em; text-transform: uppercase; color: v
 .actions { display: flex; gap: 12px; align-items: center; margin-top: 24px; }
 .ghost { border: 1px solid var(--line); border-radius: 999px; padding: 8px 18px; font-size: .88rem; transition: border-color .2s; }
 .ghost:hover { border-color: var(--fg); }
+.url { display: inline-block; margin-top: 14px; font-size: .85rem; color: var(--muted); position: relative; z-index: 2; }
+.url:hover { color: var(--fg); }
+.others { list-style: none; margin: 24px 0 0; padding: 0; display: grid; gap: 4px; }
+.others li { display: flex; flex-wrap: wrap; gap: 4px 16px; align-items: baseline; border-top: 1px solid var(--line); padding: 12px 0; }
+.others .url { margin-top: 0; }
+.others small { color: var(--muted); font-size: .8rem; }
 .pill, .ghost { position: relative; z-index: 2; }
 
 .skillgroups { display: grid; gap: 16px; margin-bottom: 48px; }

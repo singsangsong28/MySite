@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { Lines, Marquee, Reveal, Tilt } from "@/components/motion";
 import photo from "@/assets/profile.jpg"; // 정적 import → 해시 파일명(/_next/static/media)으로 장기 캐시 가능
-import { profile, skills, timeline, stats, moving, notes, interests } from "./data";
+import { profile, skills, timeline, stats, moving, otherWorks, notes, interests } from "./data";
 
 export default function Home() {
   return (
@@ -100,6 +100,17 @@ export default function Home() {
                   </div>
                 </div>
               </Tilt>
+            </Reveal>
+            <Reveal>
+              <ul className="others">
+                {otherWorks.map((w) => (
+                  <li key={w.name}>
+                    <span>{w.name}</span>
+                    <small>{w.when}</small>
+                    <a className="url" href={w.url} target="_blank" rel="noopener noreferrer">{w.url.replace(/^https:\/\/|\/$/g, "")} ↗</a>
+                  </li>
+                ))}
+              </ul>
             </Reveal>
 
           </div>

@@ -1,36 +1,36 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# singsangssong.com
 
-## Getting Started
+풀스택 개발자 송현규의 포트폴리오 사이트. 선박기관사에서 풀스택 개발자로 전환한 과정과 팀 프로젝트 Moving의 작업 기록을 담았습니다.
 
-First, run the development server:
+https://singsangssong.com
+
+## 구성
+
+- 소개, 기술 스택, 이력 타임라인
+- Selected Works: 팀 프로젝트 Moving 상세, 공부의 숲·최애의 포토 배포 링크
+- Engineering Notes: 결제 검증, SSE 채팅, 봇 검증, 인증 가드 등 판단 근거를 남긴 사례
+
+## 기술 스택
+
+Next.js (App Router, `output: "export"` 정적 빌드), TypeScript, Framer Motion, Lenis. Vercel로 배포하고 도메인은 Cloudflare DNS로 연결했습니다.
+
+## 실행
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+npm run dev     # http://localhost:3000
+npm run build   # 정적 결과물이 out/ 에 생성됨
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 내용 수정
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+사이트에 들어가는 문구와 링크는 전부 `app/data.ts` 한 파일에서 고칩니다.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+| 항목 | 위치 |
+| --- | --- |
+| 연락처, GitHub | `profile` |
+| 기술 스택 | `skills` |
+| 이력 | `timeline` |
+| Moving 카드 | `moving` (`docs`에 Notion 문서 URL을 넣으면 "개발 문서" 버튼이 나타남) |
+| 그 외 프로젝트 링크 | `otherWorks` |
+| Engineering Notes | `notes` |
