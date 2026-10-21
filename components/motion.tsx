@@ -23,7 +23,7 @@ export function Smooth({ children }: { children: ReactNode }) {
 export function ProgressBar() {
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, { stiffness: 120, damping: 30 });
-  return <motion.div className="progress" style={{ scaleX }} />;
+  return <motion.div className="fixed inset-x-0 top-0 z-100 h-0.5 origin-left bg-accent" style={{ scaleX }} />;
 }
 
 export function Reveal({ children, delay = 0, className }: { children: ReactNode; delay?: number; className?: string }) {
@@ -45,7 +45,7 @@ export function Lines({ lines, className }: { lines: ReactNode[]; className?: st
   return (
     <h1 className={className}>
       {lines.map((line, i) => (
-        <span className="mask" key={i}>
+        <span className="block overflow-hidden pb-[.08em]" key={i}>
           <motion.span
             style={{ display: "block" }}
             initial={{ y: "110%" }}
@@ -63,16 +63,16 @@ export function Lines({ lines, className }: { lines: ReactNode[]; className?: st
 export function Marquee({ items }: { items: string[] }) {
   const row = [...items, ...items, ...items, ...items];
   return (
-    <div className="marquee" aria-hidden>
+    <div className="overflow-hidden border-y border-line py-[22px] whitespace-nowrap" aria-hidden>
       <motion.div
-        className="marquee-track"
+        className="inline-flex text-[clamp(1.4rem,3vw,2.2rem)] font-black tracking-[.04em]"
         animate={{ x: ["0%", "-50%"] }}
         transition={{ duration: 28, ease: "linear", repeat: Infinity }}
       >
         {row.map((t, i) => (
-          <span key={i}>
+          <span key={i} className="mr-9 inline-flex items-center gap-9">
             {t}
-            <i>●</i>
+            <i className="text-[.5em] text-accent not-italic">●</i>
           </span>
         ))}
       </motion.div>
@@ -95,7 +95,7 @@ export function Tilt({ children, className = "" }: { children: ReactNode; classN
   return (
     <motion.div
       ref={ref}
-      className={`card ${className}`}
+      className={`group relative overflow-hidden rounded-[20px] border border-line bg-card transition-[border-color] duration-300 hover:border-[#3a3a3d] ${className}`}
       style={{ rotateX, rotateY, transformPerspective: 900 }}
       onMouseMove={(e) => {
         const r = ref.current!.getBoundingClientRect();
@@ -108,7 +108,7 @@ export function Tilt({ children, className = "" }: { children: ReactNode; classN
       }}
       whileHover={{ scale: 1.015 }}
     >
-      <motion.div className="glow" style={{ background: glow }} />
+      <motion.div className="pointer-events-none absolute inset-0 z-1" style={{ background: glow }} />
       {children}
     </motion.div>
   );

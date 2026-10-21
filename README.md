@@ -12,7 +12,7 @@ https://singsangssong.com
 
 ## 기술 스택
 
-Next.js (App Router, `output: "export"` 정적 빌드), TypeScript, Framer Motion, Lenis. Vercel로 배포하고 도메인은 Cloudflare DNS로 연결했습니다.
+Next.js (App Router, `output: "export"` 정적 빌드), TypeScript, Tailwind CSS v4, Framer Motion, Lenis. Vercel로 배포하고 도메인은 Cloudflare DNS로 연결했습니다.
 
 ## 실행
 
