@@ -2,8 +2,8 @@
 export const profile = {
   email: "kuu0528888@gmail.com",
   github: "https://github.com/singsangsong28",
-  // 노션 "Song's Develop's Log Book" 웹 게시 URL로 교체할 것. 비워 두면 링크가 숨겨짐.
-  notion: "https://app.notion.com/p/38f89958ad9c81629918e9c969b9e871",
+  // 노션 "Song's Develop's Log Book" 웹 게시 주소. 비워 두면 링크가 숨겨짐.
+  notion: "https://languid-squid-a81.notion.site/Song-s-Develop-s-Log-Book-38f89958ad9c81629918e9c969b9e871",
 };
 
 export const skills = [
@@ -42,8 +42,8 @@ export const moving = {
   ],
   site: "https://www.letsmoving.site",
   repo: "https://github.com/3unbum/13-4-MOVING_FE",
-  // 노션 "Moving — 이사 견적 매칭 플랫폼" 페이지를 웹 게시한 URL. 비워 두면 버튼이 숨겨짐.
-  docs: "",
+  // 노션 "Moving — 이사 견적 매칭 플랫폼" 웹 게시 주소. 비워 두면 버튼이 숨겨짐.
+  docs: "https://languid-squid-a81.notion.site/Moving-3fe89958ad9c8190b8d9e17b41430f11",
 };
 
 // Works에 설명 없이 배포 주소만 나열
