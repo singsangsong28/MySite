@@ -1,13 +1,17 @@
 "use client";
 
-import { useEffect, useRef, type ReactNode } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import { motion, useScroll, useSpring, useMotionValue, useTransform } from "framer-motion";
 import Lenis from "lenis";
+
+// Lenis가 html의 scroll-behavior를 auto로 고정해서, 맨 위 이동은 Lenis로 해야 부드럽게 움직임
+let lenisInstance: Lenis | null = null;
 
 export function Smooth({ children }: { children: ReactNode }) {
   useEffect(() => {
     if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const lenis = new Lenis();
+    lenisInstance = lenis;
     let id = requestAnimationFrame(function raf(t) {
       lenis.raf(t);
       id = requestAnimationFrame(raf);
@@ -15,9 +19,36 @@ export function Smooth({ children }: { children: ReactNode }) {
     return () => {
       cancelAnimationFrame(id);
       lenis.destroy();
+      lenisInstance = null;
     };
   }, []);
   return <>{children}</>;
+}
+
+/** 첫 화면(뷰포트 한 장)을 지나면 나타나는 맨 위로 버튼 */
+export function BackToTop({ label }: { label: string }) {
+  const [show, setShow] = useState(false);
+  useEffect(() => {
+    const onScroll = () => setShow(window.scrollY > window.innerHeight);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+  return (
+    <button
+      type="button"
+      aria-label={label}
+      title={label}
+      aria-hidden={!show}
+      tabIndex={show ? 0 : -1}
+      onClick={() => (lenisInstance ? lenisInstance.scrollTo(0) : window.scrollTo({ top: 0, behavior: "smooth" }))}
+      className={`fixed right-[clamp(16px,3vw,32px)] bottom-[clamp(16px,3vw,32px)] z-50 grid size-12 cursor-pointer place-items-center rounded-full border border-line bg-card/80 text-fg backdrop-blur-[6px] transition-[opacity,transform,border-color,color] duration-300 ease-expo hover:border-accent hover:text-accent ${show ? "translate-y-0 opacity-100" : "pointer-events-none translate-y-3 opacity-0"}`}
+    >
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <path d="M12 19V5M5 12l7-7 7 7" />
+      </svg>
+    </button>
+  );
 }
 
 export function ProgressBar() {

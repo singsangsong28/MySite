@@ -1,5 +1,5 @@
 import { Geist, Noto_Sans_KR } from "next/font/google";
-import { Smooth, ProgressBar } from "./motion";
+import { Smooth, ProgressBar, BackToTop } from "./motion";
 
 const geist = Geist({ variable: "--font-en", subsets: ["latin"] });
 const noto = Noto_Sans_KR({ variable: "--font-ko", subsets: ["latin"], weight: ["400", "500", "700", "900"] });
@@ -11,6 +11,7 @@ export function RootShell({ lang, children }: { lang: string; children: React.Re
       <body className="overflow-x-hidden bg-bg leading-[1.7] text-fg antialiased">
         <ProgressBar />
         <Smooth>{children}</Smooth>
+        <BackToTop label={lang === "ko" ? "맨 위로" : "Back to top"} />
       </body>
     </html>
   );
