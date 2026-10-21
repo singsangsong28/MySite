@@ -11,7 +11,7 @@ export const skills = [
   { group: "Frontend", items: ["React", "Next.js (App Router)", "TanStack Query", "Tailwind CSS", "Framer Motion"] },
   { group: "Backend", items: ["Express.js", "Prisma ORM", "PostgreSQL", "MongoDB"] },
   { group: "Infra / Security", items: ["AWS IAM", "AWS Systems Manager Parameter Store (SecureString / KMS)"] },
-  { group: "Tools & Collaboration", items: ["Git (interactive rebase, --force-with-lease)", "Swagger", "DBeaver", "Figma", "CodeRabbit", "Vercel", "Render", "AWS"] },
+  { group: "Tools & Collaboration", items: ["Swagger", "DBeaver", "Figma", "CodeRabbit", "Vercel", "Render", "AWS"] },
 ];
 
 // 이력서에 적힌 것만 넣음. 대학·해기사 면허·자격증은 이력서에 없어서 비워 둠.
