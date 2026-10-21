@@ -1,7 +1,17 @@
 import Image from "next/image";
 import { Lines, Marquee, Reveal, Tilt } from "@/components/motion";
 import photo from "@/assets/profile.jpg"; // 정적 import → 해시 파일명(/_next/static/media)으로 장기 캐시 가능
+import movingShot from "@/assets/moving.jpg";
+import forestShot from "@/assets/study-forest.jpg";
+import photoShot from "@/assets/favorite-photo.jpg";
 import { profile, skills, timeline, stats, moving, otherWorks, notes, interests } from "./data";
+
+// 썸네일은 각 사이트 첫 화면 캡처 (Edge headless, 1280px 폭)
+const shots = [movingShot, forestShot, photoShot];
+const works = [
+  { name: "Moving", when: moving.when, stack: moving.stack, site: moving.site, repo: moving.repo, docs: moving.docs },
+  ...otherWorks.map((w) => ({ name: w.name, when: w.when, stack: w.stack, site: w.url, repo: w.repo, docs: "" })),
+];
 
 export default function Home() {
   return (
@@ -22,7 +32,7 @@ export default function Home() {
           <span className="badge"><b />Open to Opportunities</span>
           <Lines
             className="display"
-            lines={["선박의 심장을 다루던 손으로,", <span key="l2">화면을 <em>만듭니다</em>.</span>]}
+            lines={["선박의 심장을 다루던 손으로,", <span key="l2">서비스를 <em>만듭니다</em>.</span>]}
           />
           <Reveal delay={0.6}>
             <p className="lead">
@@ -49,7 +59,7 @@ export default function Home() {
                 백엔드와 프론트엔드를 모두 다루는 풀스택 개발자입니다.
               </p>
               <p className="muted">
-                화면을 만드는 데서 멈추지 않고, 인증 토큰 저장 방식, 캐시 전략, 환경변수 관리 구조 같은 선택지를
+                기능을 구현하는 데서 멈추지 않고, 인증 토큰 저장 방식, 캐시 전략, 환경변수 관리 구조 같은 선택지를
                 비교하고 근거를 남겨 판단합니다. 작은 판단 착오가 큰 사고로 이어지는 배 위에서 절차를 지키고
                 기록하던 습관이 지금도 코드에 그대로 남아 있습니다.
               </p>
@@ -79,41 +89,45 @@ export default function Home() {
         <section id="works" className="block">
           <Reveal><h2>Selected Works</h2></Reveal>
           <div className="works">
-            <Reveal className="feature-wrap">
-              <Tilt className="feature">
-                <div className="thumb" style={{ ["--h" as string]: 18 }}><span>Moving</span></div>
-                <div className="meta">
-                  <small>{moving.tag}</small>
-                  <h3>{moving.title}</h3>
-                  <p>{moving.desc}</p>
-                  <div className="stats">
-                    {stats.map((s) => (
-                      <div key={s.l}><b>{s.n}</b><span>{s.l}</span></div>
-                    ))}
-                  </div>
-                  <ul className="role">{moving.role.map((r) => <li key={r}>{r}</li>)}</ul>
-                  <div className="chips">{moving.stack.map((s) => <span key={s}>{s}</span>)}</div>
-                  <div className="actions">
-                    <a className="pill" href={moving.site} target="_blank" rel="noopener noreferrer">사이트 보기 ↗</a>
-                    <a className="ghost" href={moving.repo} target="_blank" rel="noopener noreferrer">GitHub ↗</a>
-                    {moving.docs && <a className="ghost" href={moving.docs} target="_blank" rel="noopener noreferrer">개발 문서 ↗</a>}
-                  </div>
-                </div>
-              </Tilt>
-            </Reveal>
-            <Reveal>
-              <ul className="others">
-                {otherWorks.map((w) => (
-                  <li key={w.name}>
+            {works.map((w, i) => (
+              <Reveal key={w.name} delay={i * 0.08}>
+                <Tilt className="work">
+                  <div className="thumb">
+                    <Image src={shots[i]} alt={`${w.name} 첫 화면`} placeholder="blur" sizes="(max-width: 760px) 100vw, 400px" />
                     <span>{w.name}</span>
+                  </div>
+                  <div className="meta">
                     <small>{w.when}</small>
-                    <a className="url" href={w.url} target="_blank" rel="noopener noreferrer">{w.url.replace(/^https:\/\/|\/$/g, "")} ↗</a>
-                  </li>
-                ))}
-              </ul>
-            </Reveal>
-
+                    <h3>{w.name}</h3>
+                    <div className="chips">{w.stack.map((s) => <span key={s}>{s}</span>)}</div>
+                    <div className="actions">
+                      <a className="pill" href={w.site} target="_blank" rel="noopener noreferrer">사이트 보기 ↗</a>
+                      {w.repo && <a className="ghost" href={w.repo} target="_blank" rel="noopener noreferrer">GitHub ↗</a>}
+                      {w.docs && <a className="ghost" href={w.docs} target="_blank" rel="noopener noreferrer">개발 문서 ↗</a>}
+                    </div>
+                  </div>
+                </Tilt>
+              </Reveal>
+            ))}
           </div>
+          {profile.notion && (
+            <Reveal>
+              <a className="more" href={profile.notion} target="_blank" rel="noopener noreferrer">프로젝트 전체 기록 보기 ↗</a>
+            </Reveal>
+          )}
+          <Reveal>
+            <div className="detail">
+              <small>{moving.tag}</small>
+              <h3>{moving.title}</h3>
+              <p>{moving.desc}</p>
+              <div className="stats">
+                {stats.map((s) => (
+                  <div key={s.l}><b>{s.n}</b><span>{s.l}</span></div>
+                ))}
+              </div>
+              <ul className="role">{moving.role.map((r) => <li key={r}>{r}</li>)}</ul>
+            </div>
+          </Reveal>
         </section>
 
         <section id="notes" className="block">
@@ -152,6 +166,7 @@ export default function Home() {
             <div className="links">
               <a href={profile.github} target="_blank" rel="noopener noreferrer">GitHub ↗</a>
               <a href={moving.site} target="_blank" rel="noopener noreferrer">Moving ↗</a>
+              {profile.notion && <a href={profile.notion} target="_blank" rel="noopener noreferrer">Notion ↗</a>}
             </div>
           </Reveal>
         </section>

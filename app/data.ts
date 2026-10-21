@@ -2,6 +2,8 @@
 export const profile = {
   email: "kuu0528888@gmail.com",
   github: "https://github.com/singsangsong28",
+  // 노션 "Song's Develop's Log Book" 웹 게시 URL로 교체할 것. 비워 두면 링크가 숨겨짐.
+  notion: "https://app.notion.com/p/38f89958ad9c81629918e9c969b9e871",
 };
 
 export const skills = [
@@ -28,6 +30,7 @@ export const stats = [
 ];
 
 export const moving = {
+  when: "2026.08 – 2026.10",
   tag: "Team Project · Codeit 고급 프로젝트 · 2026.08 – 2026.10",
   title: "Moving — 이사 견적 매칭 플랫폼",
   desc: "고객이 이사 유형과 일정을 입력해 견적을 요청하면, 여러 기사님의 견적을 한 화면에서 비교하고 확정하는 서비스. MVP 완료.",
@@ -45,8 +48,8 @@ export const moving = {
 
 // Works에 설명 없이 배포 주소만 나열
 export const otherWorks = [
-  { name: "공부의 숲", when: "2026.05.18 – 2026.06.08", url: "https://13-study-forest-team2-fe.netlify.app/" },
-  { name: "최애의 포토", when: "2026.07.08 – 2026.07.31", url: "https://13-favorite-photo-4-fe-82g5.vercel.app/" },
+  { name: "공부의 숲", when: "2026.05.18 – 2026.06.08", stack: ["React", "Node.js", "Express", "Prisma", "PostgreSQL", "Zod"], url: "https://13-study-forest-team2-fe.netlify.app/", repo: "https://github.com/damdadaxx/13-study-forest-team2-fe" },
+  { name: "최애의 포토", when: "2026.07.08 – 2026.07.31", stack: ["Next.js", "React", "Node.js", "Express", "Prisma", "PostgreSQL"], url: "https://13-favorite-photo-4-fe-82g5.vercel.app/", repo: "https://github.com/jin-story/13-favorite-photo-4-FE" },
 ];
 
 // 문제를 어떻게 판단했는지 보여주는 사례. 결과보다 근거를 적음.
