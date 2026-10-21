@@ -4,7 +4,7 @@ import photo from "@/assets/profile.jpg"; // 정적 import → 해시 파일명(
 import movingShot from "@/assets/moving.jpg";
 import forestShot from "@/assets/study-forest.jpg";
 import photoShot from "@/assets/favorite-photo.jpg";
-import { profile, skills, timeline, stats, moving, otherWorks, notes, interests } from "./data";
+import { profile, skills, timeline, moving, otherWorks, notes, interests } from "./data";
 
 // 썸네일은 각 사이트 첫 화면 캡처 (Edge headless, 1280px 폭)
 const shots = [movingShot, forestShot, photoShot];
@@ -115,19 +115,6 @@ export default function Home() {
               <a className="more" href={profile.notion} target="_blank" rel="noopener noreferrer">프로젝트 전체 기록 보기 ↗</a>
             </Reveal>
           )}
-          <Reveal>
-            <div className="detail">
-              <small>{moving.tag}</small>
-              <h3>{moving.title}</h3>
-              <p>{moving.desc}</p>
-              <div className="stats">
-                {stats.map((s) => (
-                  <div key={s.l}><b>{s.n}</b><span>{s.l}</span></div>
-                ))}
-              </div>
-              <ul className="role">{moving.role.map((r) => <li key={r}>{r}</li>)}</ul>
-            </div>
-          </Reveal>
         </section>
 
         <section id="notes" className="block">
