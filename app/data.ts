@@ -9,7 +9,7 @@ export const profile = {
 export const skills = [
   { group: "Languages", items: ["JavaScript", "TypeScript"] },
   { group: "Frontend", items: ["React", "Next.js (App Router)", "TanStack Query", "Tailwind CSS", "Framer Motion"] },
-  { group: "Backend", items: ["Express.js", "Prisma ORM", "PostgreSQL", "MongoDB"] },
+  { group: "Backend", items: ["Express.js", "Prisma ORM", "Zod", "PostgreSQL", "MongoDB"] },
   { group: "Infra / Security", items: ["AWS IAM", "AWS Systems Manager Parameter Store (SecureString / KMS)"] },
   { group: "Tools & Collaboration", items: ["Git", "Swagger", "DBeaver", "Figma", "CodeRabbit", "Vercel", "Render", "AWS", "Supabase", "Cloudflare"] },
 ];
