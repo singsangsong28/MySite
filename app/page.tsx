@@ -7,7 +7,7 @@ export default function Home() {
   return (
     <>
       <header className="nav">
-        <a href="#top" className="logo">송현규<span>.</span></a>
+        <a href="#top" className="logo">singsangssong<span>.</span></a>
         <nav>
           <a href="#about">About</a>
           <a href="#works">Works</a>
@@ -96,6 +96,7 @@ export default function Home() {
                   <div className="actions">
                     <a className="pill" href={moving.site} target="_blank" rel="noopener noreferrer">사이트 보기 ↗</a>
                     <a className="ghost" href={moving.repo} target="_blank" rel="noopener noreferrer">GitHub ↗</a>
+                    {moving.docs && <a className="ghost" href={moving.docs} target="_blank" rel="noopener noreferrer">개발 문서 ↗</a>}
                   </div>
                 </div>
               </Tilt>
@@ -145,7 +146,7 @@ export default function Home() {
         </section>
       </main>
 
-      <footer className="foot">© 2026 송현규 · singsangssong.com</footer>
+      <footer className="foot">© 2026 singsangssong · singsangssong.com</footer>
     </>
   );
 }

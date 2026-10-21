@@ -39,6 +39,8 @@ export const moving = {
   ],
   site: "https://www.letsmoving.site",
   repo: "https://github.com/3unbum/13-4-MOVING_FE",
+  // 노션 "Moving — 이사 견적 매칭 플랫폼" 페이지를 웹 게시한 URL. 비워 두면 버튼이 숨겨짐.
+  docs: "",
 };
 
 // 문제를 어떻게 판단했는지 보여주는 사례. 결과보다 근거를 적음.
@@ -54,14 +56,24 @@ export const notes = [
     body: "반응형 훅 같은 의심 원인부터 하나씩 배제한 끝에, Math.sin과 Math.cos 결과가 Node와 브라우저에서 마지막 소수점 자리가 달라진다는 걸 확인했습니다. suppressHydrationWarning 대신 양쪽 값을 소수점 6자리로 반올림해 맞췄고, 이미지 용량이 늘어나는 비용도 함께 기록했습니다.",
   },
   {
-    tag: "최애의 포토 · Auth",
-    title: "refresh token 해싱을 bcrypt에서 SHA-256으로",
-    body: "해싱 비용과 타이밍 공격 방지를 동시에 만족해야 하는 지점에서 판단을 다시 했습니다. Node crypto의 SHA-256에 timingSafeEqual과 길이 사전 검사를 붙이는 방식으로 바꿨습니다.",
+    tag: "Moving · Payment",
+    title: "결제 승인 API에서 클라이언트 값을 믿지 않기",
+    body: "토스 결제 성공 URL의 금액과 주문 정보는 주소창에서 바꿀 수 있어서, 승인 전에 서버가 계산한 기준 금액과 주문번호 규칙으로 먼저 비교해 틀린 요청이 토스에 닿지 않게 했습니다. 이중 결제는 상태 조건을 건 updateMany의 갱신 행 수로 막았습니다. 키가 없는 로컬 편의 모드에서 가짜 paymentKey가 결제 완료로 통과하는 사고도 직접 겪었고, 이를 배포 전 위험으로 기록했습니다.",
   },
   {
-    tag: "판다마켓 · Caching",
-    title: "데이터 성격에 맞춘 Next.js 캐싱",
-    body: "revalidate, no-store, force-cache를 데이터마다 비교해 적용했습니다. 자주 바뀌지 않는 데이터는 재요청을 줄이고, 최신성이 필요한 데이터는 즉시 반영되도록 나눴습니다.",
+    tag: "Moving · Realtime",
+    title: "SSE로 채팅을 만들고, 신호만 보내기",
+    body: "알림에 쓰던 SSE 연결 하나를 채팅과 함께 쓰도록 넓혔습니다. 서버는 본문 대신 새 메시지가 있다는 신호만 보내고, 브라우저가 API로 내용을 다시 받습니다. 알림 문구를 조회 때 조립하는 규칙이 두 곳으로 갈라지는 걸 피하고, 신호가 유실돼도 재조회로 맞춰지게 하려는 선택이었습니다. 신호는 트랜잭션이 커밋된 뒤에만 발행해 롤백된 알림이 클라이언트에 나가지 않게 했고, 서버 1대 전제라는 한계도 문서에 남겼습니다.",
+  },
+  {
+    tag: "Moving · Security",
+    title: "로그인 봇 검증을 rate limit보다 앞에 두기",
+    body: "계정별 rate limit만으로는 계정을 바꿔 가며 시도하는 요청을 막지 못해 Cloudflare Turnstile을 도입했습니다. 검증을 rate limit 앞에 둔 이유는 뒤에 두면 봇이 남의 계정 시도 횟수를 먼저 소진시켜 정상 사용자를 잠글 수 있기 때문입니다. 서버는 검증 호출이 실패하면 막는 fail-closed로 두었고, 요청 자체를 못 받게 하지는 못한다는 한계도 함께 적었습니다.",
+  },
+  {
+    tag: "Moving · Auth",
+    title: "클라이언트 훅 가드를 서버 컴포넌트 가드로",
+    body: "useEffect 안에서 하는 route guard는 화면이 그려진 뒤에 판정해서 보호된 화면이 잠깐 보이고, 캐시된 상태가 낡으면 잘못 보낼 수도 있습니다. 그래서 판정은 서버 레이아웃에서 redirect()로 하고, 진짜 방어선은 BE의 requireAuth와 requireRole에 두었습니다. FE 가드는 어디까지가 안내용인지 먼저 정한 셈입니다.",
   },
   {
     tag: "Moving · Review",
