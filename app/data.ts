@@ -3,8 +3,7 @@ export const profile = {
   email: "kuu0528888@gmail.com",
   github: "https://github.com/singsangsong28",
   // 노션 "Song's Develop's Log Book" 웹 게시 주소. 비워 두면 링크가 숨겨짐.
-  notion: "https://languid-squid-a81.notion.site/Song-s-Develop-s-Log-Book-38f89958ad9c81629918e9c969b9e871",
-};
+  notion: "https://languid-squid-a81.notion.site/Song-s-Develop-s-Log-Book-38f89958ad9c81629918e9c969b9e871",};
 
 export const skills = [
   { group: "Languages", items: ["JavaScript", "TypeScript"] },
