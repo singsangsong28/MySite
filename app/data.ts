@@ -46,6 +46,15 @@ export const moving = {
   docs: "https://languid-squid-a81.notion.site/Moving-3fe89958ad9c8190b8d9e17b41430f11",
 };
 
+export const rehearview = {
+  when: "2026.10.28 –",
+  stack: ["TypeScript", "Next.js", "Express", "Prisma", "PostgreSQL", "Zod"],
+  site: "https://www.rehearview.shop",
+  repo: "https://github.com/singsangsong28/rehearview-fe",
+  // 노션 Rehearview 페이지 웹 게시 주소. 비워 두면 버튼이 숨겨짐.
+  docs: "",
+};
+
 // Works에 설명 없이 배포 주소만 나열
 export const otherWorks = [
   { name: "공부의 숲", when: "2026.05.18 – 2026.06.08", stack: ["React", "Node.js", "Express", "Prisma", "PostgreSQL", "Zod"], url: "https://13-study-forest-team2-fe.netlify.app/", repo: "https://github.com/damdadaxx/13-study-forest-team2-fe" },
@@ -88,6 +97,26 @@ export const notes = [
     tag: "Moving · Review",
     title: "AI 리뷰를 그대로 받아들이지 않기",
     body: "직접 도입한 CodeRabbit이 IP 기반 rate limiting에 인증이 없다고 지적했을 때, 그 라우트의 유일한 비로그인 경로가 배포 전에 삭제될 쇼케이스 페이지라는 근거로 반박하고 이후 제시된 대안을 검토했습니다.",
+  },
+  {
+    tag: "Rehearview · LLM",
+    title: "무료 티어 한도에 걸려도 에러를 보여 주지 않기",
+    body: "결제수단을 연결하지 않는다는 원칙을 먼저 정했고, 그 안에서 면접이 끊기지 않는 방법을 찾았습니다. 상위 모델은 하루 20회 한도가 금방 차서 모델을 낮추고, 질문마다 보내는 브리프와 지난 답변의 길이를 제한해 토큰을 줄였습니다. 모든 제공사의 한도가 찼을 때는 에러를 내는 대신 정해진 시간까지 기다렸다 다시 시도하게 했고, 이 대기가 프록시 시간 제한 안에서 실제로 버티는지는 아직 검증이 남았다고 기록했습니다.",
+  },
+  {
+    tag: "Rehearview · Security",
+    title: "사용자가 넣은 URL을 서버가 대신 열 때의 SSRF",
+    body: "채용 공고 URL을 서버가 대신 가져오는 기능이라, 내부망 주소를 넣으면 서버가 내부 자원을 부르게 됩니다. 기능은 유지하되 요청 전에 대상 IP를 검사해 사설·내부 대역을 막는 쪽을 골랐습니다. 요청에는 undici를 사용했습니다.",
+  },
+  {
+    tag: "Rehearview · Infra",
+    title: "프록시를 두 번 거치면 모든 요청이 한 IP로 보인다",
+    body: "프론트는 Vercel, 백엔드는 Caddy 뒤에 있어서 백엔드가 모든 요청을 프록시 IP로 봐 IP별 요청 제한이 의미가 없었습니다. Caddy가 Vercel이 넘기는 클라이언트 IP 헤더를 X-Forwarded-For로 옮기고, 백엔드는 프록시 한 단계만 신뢰하도록 설정해 제한이 동작하는 것을 확인했습니다. 백엔드에 직접 요청하면 헤더를 위조할 수 있다는 한계는 그대로 남겨 두고 문서에 적었습니다.",
+  },
+  {
+    tag: "Rehearview · Privacy",
+    title: "이력서가 오가는 서비스에서 무료 AI 티어를 쓰는 대가",
+    body: "Gemini 무료 티어는 입력과 출력이 제품 개선에 쓰이고 사람이 검토할 수 있다는 점을 공식 약관에서 확인했습니다. 이력서와 자소서가 들어가는 서비스라, 서류 원문을 DB에 저장하지 않고 브라우저에만 두는 쪽으로 설계했습니다. 처리방침에는 국외 이전과 분석 도구의 보관 기간까지 적었고, 공개 전에는 유료 전환이나 별도 고지가 필요하다는 점을 남은 일로 기록했습니다.",
   },
 ];
 

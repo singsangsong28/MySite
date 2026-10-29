@@ -2,12 +2,13 @@ import Image from "next/image";
 import { Lines, Marquee, Reveal, Tilt } from "@/components/motion";
 import photo from "@/assets/profile.jpg"; // 정적 import → 해시 파일명(/_next/static/media)으로 장기 캐시 가능
 import movingShot from "@/assets/moving.jpg";
+import rehearviewShot from "@/assets/rehearview.png";
 import forestShot from "@/assets/study-forest.jpg";
 import photoShot from "@/assets/favorite-photo.jpg";
 import { data, ui, type Locale } from "@/app/i18n";
 
-// 썸네일은 각 사이트 첫 화면 캡처 (Edge headless, 1280px 폭)
-const shots = [movingShot, forestShot, photoShot];
+// 썸네일은 각 사이트 첫 화면 캡처 (Edge headless, 1280px 폭). works 배열과 순서가 같아야 함.
+const shots = [movingShot, rehearviewShot, forestShot, photoShot];
 
 // 반복해서 쓰는 클래스 묶음
 const pad = "px-[clamp(20px,5vw,56px)]";
@@ -23,10 +24,11 @@ const ghost =
 const ext = { target: "_blank", rel: "noopener noreferrer" } as const;
 
 export default function Home({ locale }: { locale: Locale }) {
-  const { profile, skills, timeline, moving, otherWorks, notes, interests } = data[locale];
+  const { profile, skills, timeline, moving, rehearview, otherWorks, notes, interests } = data[locale];
   const t = ui[locale];
   const works = [
     { name: "Moving", when: moving.when, stack: moving.stack, site: moving.site, repo: moving.repo, docs: moving.docs },
+    { name: "Rehearview", when: rehearview.when, stack: rehearview.stack, site: rehearview.site, repo: rehearview.repo, docs: rehearview.docs },
     ...otherWorks.map((w) => ({ name: w.name, when: w.when, stack: w.stack, site: w.url, repo: w.repo, docs: "" })),
   ];
 
@@ -182,6 +184,7 @@ export default function Home({ locale }: { locale: Locale }) {
             <div className="mt-7 flex gap-6 text-muted [&>a:hover]:text-fg">
               <a href={profile.github} {...ext}>GitHub ↗</a>
               <a href={moving.site} {...ext}>Moving ↗</a>
+              <a href={rehearview.site} {...ext}>Rehearview ↗</a>
               {profile.notion && <a href={profile.notion} {...ext}>Notion ↗</a>}
             </div>
           </Reveal>

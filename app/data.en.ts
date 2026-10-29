@@ -1,7 +1,7 @@
 // 영문판 내용. 형태는 data.ts와 같고, 링크·기술 스택처럼 언어와 무관한 값은 그대로 가져옴.
-import { moving, otherWorks as otherWorksKo, profile, skills } from "./data";
+import { moving, otherWorks as otherWorksKo, profile, rehearview, skills } from "./data";
 
-export { moving, profile, skills };
+export { moving, profile, rehearview, skills };
 
 export const timeline = [
   { kind: "Education", when: "Completed 2026.10", what: "Codeit Bootcamp, Full-stack Course", note: "A curriculum that covers React/Next.js frontend and Express/Prisma backend together. Learned server-state management with TanStack Query and applied it in mission projects." },
@@ -48,6 +48,26 @@ export const notes = [
     tag: "Moving · Review",
     title: "Not accepting AI review as-is",
     body: "When CodeRabbit, which I had introduced, flagged that IP-based rate limiting had no authentication, I pushed back on the grounds that the route's only logged-out path was a showcase page that would be deleted before release, and then reviewed the alternatives it proposed.",
+  },
+  {
+    tag: "Rehearview · LLM",
+    title: "Not showing an error when the free tier hits its limit",
+    body: "I first set the rule that no payment method gets attached, and looked for a way to keep interviews from breaking within it. The top model hit its 20-calls-a-day limit quickly, so I moved to a lighter model and capped the length of the brief and previous answers sent with each question to cut tokens. When every provider is at its limit, the server waits up to a set time and retries instead of returning an error, and I recorded that it is still unverified whether this wait survives the proxy timeout.",
+  },
+  {
+    tag: "Rehearview · Security",
+    title: "SSRF when the server opens a URL the user typed",
+    body: "The server fetches a job posting URL on the user's behalf, so an internal address would make it call internal resources. I kept the feature and chose to check the target IP before the request and block private and internal ranges. Requests go through undici.",
+  },
+  {
+    tag: "Rehearview · Infra",
+    title: "Behind two proxies, every request looks like one IP",
+    body: "The frontend is on Vercel and the backend sits behind Caddy, so the backend saw every request as the proxy's IP and per-IP rate limits meant nothing. Caddy now moves the client IP header that Vercel passes into X-Forwarded-For, and the backend trusts only one proxy hop; I confirmed the limit works. The limit that headers can be forged on direct requests to the backend remains, and I wrote it down.",
+  },
+  {
+    tag: "Rehearview · Privacy",
+    title: "The cost of a free AI tier in a service that handles résumés",
+    body: "I confirmed in the official terms that the Gemini free tier may use inputs and outputs to improve products and that humans may review them. Since résumés and cover letters go in, I designed it so the original documents are never stored in the DB and stay only in the browser. The privacy policy covers overseas transfer and the analytics retention period, and I logged that moving to a paid tier or adding a separate notice is needed before a public launch.",
   },
 ];
 
